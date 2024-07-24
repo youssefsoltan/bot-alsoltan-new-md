@@ -10,13 +10,40 @@
 
 ## <span style="color: #4CAF50;">المتطلبات</span>
 
-## <span style="color: #4CAF50;">منصات الاستضافة</span>
+# <span style="color: #4CAF50;">منصات الاستضافة</span>
 - [![BoxMineHost](https://img.shields.io/badge/BoxMineHost-4CAF50?style=for-the-badge&logo=data:image/png;base64,LOGO_BASE64&logoColor=white)](https://boxminehost.com)
 - [![Replit](https://img.shields.io/badge/Replit-F26207?style=for-the-badge&logo=replit&logoColor=white)](https://replit.com)
 - [![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com)
 - [![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://heroku.com)
 - [![Termux](https://img.shields.io/badge/Termux-000000?style=for-the-badge&logo=termux&logoColor=white)](https://termux.com)
-- [![Scalingo](https://img.shields.io/badge/Scalingo-38A3A5?style=for-the-badge&logo=scalingo&logoColor=white)](https://scalingo.com)
+- [![Scalingo](https://img.shields.io/badge/Scalingo-38A3A5?style=for-the-badge&logo=scalingo&logoColor=white)](https://dashboard.scalingo.com/)
+```
+┌─ 〘 *طريقة الاستضافة في منصة `scalingo`* 〙 ─ ⳹
+│✑ 「 الرابط: https://dashboard.scalingo.com/ 」
+└┬ ✑ 「 *الخطـــوات*  」 ─ ⳹
+   │✑  التسجيل في المنصه بالربط بحسابك على `github`.
+   │✑  اضغط على بعد التسجيل `Create an app`.
+   │✑ أضف أسم لمشروعك في خانة `App name`.
+   │✑ اضغط على `create app`.
+   │✑ اضغط على `Link repo` في خيار `GitHub`.
+   │✑ اختر حسابك في خانة `Select an organization`.
+   │✑ اختر ملف بوتك في خانة `Select a repository`.
+   │✑ اختر اكتفتى التفعيل في خانة `Select a branch`.
+   │✑ اضغط على `Content`. 
+   │✑ اضغط على `Finish`. 
+   │✑ اضغط على `Overview`. 
+   │✑ اختر `Deploy`. 
+   │✑ اضغط على `Manual deployment`. 
+   │✑ اضغط على `Trigger deployment`. 
+   │✑ لمتابعة تحميل الاستضافة اضغط على :
+   │✑ `Deployment in progress (starting)…`
+   │✑ انتظر تحميل الاستضافة.
+   │✑ مبروك عليك تفعيل البوت.
+   └─────〘 *𝚂𝙰𝚈𝙴𝙳-𝚂𝙷𝙰𝚆𝙰𝚉𝙰* 〙─────┈ ⳹
+```
+
+
+
 - [![ToyStack](https://img.shields.io/badge/ToyStack-FFCE00?style=for-the-badge&logo=data:image/png;base64,LOGO_BASE64&logoColor=white)](https://toystack.com)
 
 
