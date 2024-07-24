@@ -44,7 +44,7 @@
 
 
 
-- [![ToyStack](https://img.shields.io/badge/ToyStack-FFCE00?style=for-the-badge&logo=data:image/png;base64,LOGO_BASE64&logoColor=white)](https://toystack.com)
+- [![ToyStack](https://dashboard.toystack.ai/favicon.ico)]([https://toystack.com](https://dashboard.toystack.ai/))
 
 
 ## <span style="color: #4CAF50;">كيفية الاستخدام</span>
