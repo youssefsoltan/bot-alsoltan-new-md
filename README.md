@@ -12,7 +12,7 @@
 
 # <span style="color: #4CAF50;">منصات الاستضافة</span>
 - [![BoxMineHost](https://img.shields.io/badge/BoxMineHost-4CAF50?style=for-the-badge&logo=data:image/png;base64,LOGO_BASE64&logoColor=white)](https://boxminehost.com)
-- [![Replit](https://img.shields.io/badge/Replit-F26207?style=for-the-badge&logo=replit&logoColor=white)](https://replit.com)
+- [![Replit](1https://replit.com/public/icons/favicon-prompt-192.png)(https://img.shields.io/badge/Replit-F26207?style=for-the-badge&logo=replit&logoColor=white)](https://replit.com)
 - [![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com)
 - [![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://heroku.com)
 - [![Termux](https://img.shields.io/badge/Termux-000000?style=for-the-badge&logo=termux&logoColor=white)](https://termux.com)
