@@ -1,4 +1,4 @@
-console.log('[ ℹ️ ] Iniciando...');
+console.log('[ 🧞 ] 𝐼𝑁𝑺𝑇𝐴𝐿𝐿𝐴𝑇𝐼𝛩𝑁 𝐼𝑁 𝑃𝑅𝛩𝐺𝑅𝐸𝑺𝑺...');
 import {join, dirname} from 'path';
 import {createRequire} from 'module';
 import {fileURLToPath} from 'url';
@@ -13,11 +13,11 @@ const {name, author} = require(join(__dirname, './package.json'));
 const {say} = cfonts;
 const rl = createInterface(process.stdin, process.stdout);
 
-say('The Mystic\nBot', {
+say('𝑺𝐻𝐴𝑊𝐴𝑍𝐴 - 𝐵𝛩𝑇', {
   font: 'chrome',
   align: 'center',
   gradient: ['red', 'magenta']});
-say(`Bot creado por Bruno Sobrino`, {
+say(`𝐵𝛩𝑇 𝐶𝑅𝐸𝐷𝐼𝑇 𝐵𝑌 𝑺𝐴𝑌𝐸𝐷 𝑺𝐻𝐴𝑊𝐴𝑍𝐴`, {
   font: 'console',
   align: 'center',
   gradient: ['red', 'magenta']});
@@ -57,7 +57,7 @@ function start(file) {
   });
   p.on('exit', (_, code) => {
     isRunning = false;
-    console.error('[ ℹ️ ] Ocurrio un error inesperado:', code);
+    console.error('[ ℹ️ ] 𝐴𝑁 𝑈𝑁𝐸𝑋𝑃𝐸𝐶𝑇𝐸𝐷 𝐸𝑅𝑅𝛩𝑅 𝛩𝐶𝐶𝑈𝑅𝑅𝐸𝐷:', code);
 
     p.process.kill();
     isRunning = false;
