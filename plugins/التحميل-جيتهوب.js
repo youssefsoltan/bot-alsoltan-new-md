@@ -44,3 +44,4 @@ const handler = async (m, {args, usedPrefix, command}) => {
 };
 handler.command = /gitclone/i;
 export default handler;
+*/
