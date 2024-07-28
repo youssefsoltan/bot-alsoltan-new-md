@@ -67,43 +67,44 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
             const caption = '╮────────────────────────╭ـ\n│ *قائمة الدول :*\n╯────────────────────────╰ـ\n';
 
             const msg = generateWAMessageFromContent(m.chat, {
-                viewOnceMessage: {
-                    message: {
-                        interactiveMessage: {
-                            body: { text: caption },
-                            footer: { text: '𝐒𝐇𝐴𝐖𝐴𝐍𝐴-𝐁𝐎𝐓' },
-                            header: {
-                                hasMediaAttachment: true,
-                                imageMessage: media.imageMessage,
-                            },
-                            nativeFlowMessage: {
-                                buttons: [
-                                    {
-                                        name: 'single_select',
-                                        buttonParamsJson: JSON.stringify({
-                                            title: 'قائـمة الـدول',
-                                            sections: [
-                                                {
-                                                    title: 'قائمة الدول',
-                                                    highlight_label: '🇪🇬',
-                                                    rows: heager
-                                                }
-                                            ]
-                                        }),
-                                    },
-                                    {
-                name: 'quick_reply',
-                buttonParamsJson: {display_text: 'الرئيسية', id: `${usedPrefix + command}`}
-              },
-                                ],
-                                messageParamsJson: "",
-                            },
-                        },
-                    },
-                }
-            }, { userJid: conn.user.jid, quoted: m });
+  viewOnceMessage: {
+    message: {
+      interactiveMessage: {
+        body: { text: caption },
+        footer: { text: '𝑺𝐻𝐴𝑊𝐴𝑍𝐴-𝐵𝛩𝑇' },
+        header: {
+          hasMediaAttachment: true,
+          imageMessage: media.imageMessage,
+        },
+        nativeFlowMessage: {
+          buttons: [
+            {
+              name: 'single_select',
+              buttonParamsJson: JSON.stringify({
+                title: 'قائـمة الـدول',
+                sections: [
+                  {
+                    title: 'قائمة الدول',
+                    highlight_label: '🇪🇬',
+                    rows: heager
+                  }
+                ]
+              }),
+            },
+            {
+              name: 'quick_reply',
+              buttonParamsJson: `{"display_text": "الرئيسية", "id": "${usedPrefix + command}"}`
+            }
+          ],
+          messageParamsJson: "",
+        },
+      },
+    },
+  }
+}, { userJid: conn.user.jid, quoted: m });
 
-            return await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
+return await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
+
 
         } catch (error) {
             console.log(error);
@@ -149,43 +150,44 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
             const caption = '╮────────────────────────╭ـ\n│ *قائمة الأرقام :*\n╯────────────────────────╰ـ\n';
 
             const msg = generateWAMessageFromContent(m.chat, {
-                viewOnceMessage: {
-                    message: {
-                        interactiveMessage: {
-                            body: { text: caption },
-                            footer: { text: '𝐒𝐇𝐴𝐖𝐴𝐍𝐴-𝐁𝐎𝐓' },
-                            header: {
-                                hasMediaAttachment: true,
-                                imageMessage: media.imageMessage,
-                            },
-                            nativeFlowMessage: {
-                                buttons: [
-                                    {
-                                        name: 'single_select',
-                                        buttonParamsJson: JSON.stringify({
-                                            title: 'قائـمة الأرقام',
-                                            sections: [
-                                                {
-                                                    title: 'قائمة الأرقام',
-                                                    highlight_label: '📱',
-                                                    rows: heager
-                                                }
-                                            ]
-                                        }),
-                                    },
-                                    {
-                name: 'quick_reply',
-                buttonParamsJson: {display_text: 'الرئيسية', id: `${usedPrefix + command}`}
-              },
-                                ],
-                                messageParamsJson: "",
-                            },
-                        },
-                    },
-                }
-            }, { userJid: conn.user.jid, quoted: m });
+  viewOnceMessage: {
+    message: {
+      interactiveMessage: {
+        body: { text: caption },
+        footer: { text: '𝑺𝐻𝐴𝑊𝐴𝑍𝐴-𝐵𝛩𝑇' },
+        header: {
+          hasMediaAttachment: true,
+          imageMessage: media.imageMessage,
+        },
+        nativeFlowMessage: {
+          buttons: [
+            {
+              name: 'single_select',
+              buttonParamsJson: JSON.stringify({
+                title: 'قائـمة الأرقام',
+                sections: [
+                  {
+                    title: 'قائمة الأرقام',
+                    highlight_label: '📱',
+                    rows: heager
+                  }
+                ]
+              }),
+            },
+            {
+              name: 'quick_reply',
+              buttonParamsJson: `{"display_text": "الرئيسية", "id": ".رقم"}`
+            }
+          ],
+          messageParamsJson: "",
+        },
+      },
+    },
+  }
+}, { userJid: conn.user.jid, quoted: m });
 
-            return await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
+return await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
+
 
         } catch (error) {
             console.log(error);
@@ -230,41 +232,42 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
             const caption = '╮────────────────────────╭ـ\n│ *قائمة الرسائل :*\n╯────────────────────────╰ـ\n';
 
             const msg = generateWAMessageFromContent(m.chat, {
-                viewOnceMessage: {
-                    message: {
-                        interactiveMessage: {
-                            body: { text: caption },
-                            footer: { text: '𝐒𝐇𝐴𝐖𝐴𝐍𝐴-𝐁𝐎𝐓' },
-                            header: {
-                                hasMediaAttachment: true,
-                                imageMessage: media.imageMessage,
-                            },
-                            nativeFlowMessage: {
-                                buttons: [
-                                    {
-                                        name: 'single_select',
-                                        buttonParamsJson: JSON.stringify({
-                                            title: 'قائمة الرسائل',
-                                            sections: [
-                                                {
-                                                    title: 'قائمة الرسائل',
-                                                    highlight_label: '📧',
-                                                    rows: heager
-                                                }
-                                            ]
-                                        }),
-                                    },
-                                    {
-                name: 'quick_reply',
-                buttonParamsJson: {display_text: 'الرئيسية', id: `${usedPrefix + command}`}
-              },
-                                ],
-                                messageParamsJson: "",
-                            },
-                        },
-                    },
-                }
-            }, { userJid: conn.user.jid, quoted: m });
+  viewOnceMessage: {
+    message: {
+      interactiveMessage: {
+        body: { text: caption },
+        footer: { text: '𝑺𝐻𝐴𝑊𝐴𝑍𝐴-𝐵𝛩𝑇' },
+        header: {
+          hasMediaAttachment: true,
+          imageMessage: media.imageMessage,
+        },
+        nativeFlowMessage: {
+          buttons: [
+            {
+              name: 'single_select',
+              buttonParamsJson: JSON.stringify({
+                title: 'قائمة الرسائل',
+                sections: [
+                  {
+                    title: 'قائمة الرسائل',
+                    highlight_label: '📧',
+                    rows: heager
+                  }
+                ]
+              }),
+            },
+            {
+              name: 'quick_reply',
+              buttonParamsJson: `{"display_text": "الرئيسية", "id": "${usedPrefix + command}"}`
+            }
+          ],
+          messageParamsJson: "",
+        },
+      },
+    },
+  }
+}, { userJid: conn.user.jid, quoted: m });
+
 
             return await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
 
