@@ -101,9 +101,23 @@ const formatFileList = (files) => {
     return 'لم يتم العثور على ملفات.';
   }
   
-  const header = '╮──────────────────╭\n│\n╰──────────────────╯';
+  const header = `╭──────────────────╮\n│ لم يتم ادخال اسم ملف !!\n│ عدد الملفات المتاحة: ${files.length}\n╰──────────────────╯`;
   const fileList = files.map((file, index) => `│ [${index + 1}] ${file}`).join('\n');
-  return `${header}\n${fileList}\n${header}\nعدد الملفات المتاحة: ${files.length}`;
+  return `${header}\n\n╭──────────────────╮\n${fileList}\n╰──────────────────╯`;
+};
+
+// تحقق من ما إذا كان الرابط يشير إلى مستودع عام
+const isRepositoryPublic = async (repoLink) => {
+  const repoPath = repoLink.replace('https://github.com/', '').replace('.git', '');
+  const apiUrl = `https://api.github.com/repos/${repoPath}`;
+  
+  try {
+    const response = await axios.get(apiUrl);
+    return !response.data.private; // إذا كان private == false، فهذا يعني أنه عام
+  } catch (error) {
+    console.error('خطأ في جلب معلومات المستودع:', error);
+    return false;
+  }
 };
 
 const handler = async (m, { conn, isROwner, usedPrefix, command, text }) => {
@@ -112,6 +126,11 @@ const handler = async (m, { conn, isROwner, usedPrefix, command, text }) => {
     if (!text) return m.reply('يرجى تقديم رابط المشروع.');
     if (!text.startsWith('https://github.com/') || !text.endsWith('.git')) {
       return m.reply('الرابط يجب أن يكون رابط GitHub ينتهي بـ ".git".');
+    }
+
+    const isPublic = await isRepositoryPublic(text);
+    if (!isPublic) {
+      return m.reply('الرابط يشير إلى مستودع خاص. يرجى تقديم رابط لمستودع عام.');
     }
 
     saveProjectLink(text);
@@ -136,7 +155,7 @@ const handler = async (m, { conn, isROwner, usedPrefix, command, text }) => {
       // عرض محتوى الملف إذا تم إدخال اسم الملف
       const fileNameWithExt = `${text}.js`; // التأكد من أن اسم الملف ينتهي بـ .js
       if (!files.includes(fileNameWithExt)) {
-        return m.reply(`الملف "${fileNameWithExt}" غير موجود. القائمة المتاحة هي:\n${formatFileList(files)}`);
+        return m.reply(`╭──────────────────╮\n│ الملف "${fileNameWithExt}" غير موجود.\n│ القائمة المتاحة هي:\n╰──────────────────╯\n\n\n╭──────────────────╮\n${formatFileList(files)}\n╰──────────────────╯`);
       }
 
       const fileUrl = getFileUrl(projectLink, fileNameWithExt);
