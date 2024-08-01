@@ -17,5 +17,5 @@ const handler = async (m, {args, usedPrefix, command}) => {
   m.reply('جاري تحميل الملف من GitHub...');
   conn.sendFile(m.chat, url, filename, null, m);
 };
-handler.command = /gitclone|repo|جيت/i;
+handler.command = /^(gitclone|repo|جيتي)$/i;
 export default handler;
