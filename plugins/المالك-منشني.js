@@ -10,7 +10,7 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  const vn2 = './media/سقيتك كاس.mp3'; 
    
  let num = "201145624848"; //number owner
- let num2 = "3584573985855"; //number bot
+ let num2 = "3197010588870"; //number bot
  let sender = m.sender.split('@')[0];
  
  if (m.mentionedJid && m.mentionedJid[0]) {
