@@ -5,12 +5,9 @@ import cheerio from 'cheerio';
 const handler = async (m, { text, conn, isOwner, args, command, usedPrefix }) => {
 
 let fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 'status@broadcast', 'fromMe': false, 'id': '𝐒𝐇𝐀𝐖𝐀𝐙𝐀-𝐁𝐎𝐓' }, 'message': { 'contactMessage': { 'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` } }, 'participant': '0@s.whatsapp.net' };
-
-  const imageUrl = 'https://j4y2n2s2.rocketcdn.me/wp-content/uploads/2016/05/XNXX.jpg';
+  
 
   if (!db.data.chats[m.chat].modohorny && m.isGroup) return conn.sendMessage(m.chat,{text: '*وضع التقييد شغال ي حوب 🧞*'}, {quoted: fakecontact });   
-  
-  
   
   
   
@@ -37,6 +34,10 @@ let fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 's
     const res = await xnxxsearch(text);
     const json = res.result;
 
+    const plinke = `https://image.thum.io/get/fullpage/`;
+  const imageUrl = `${plinke}https://www.xnxx.com/search/${text}`;
+
+
     let messa = await prepareWAMessageMedia({ image: { url: imageUrl } }, { upload: conn.waUploadToServer });
 
 
@@ -44,7 +45,7 @@ let fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 's
     let menu = `Search results for : ${cap}`;
     let saludos = `~ Hi : @${m.sender.split("@")[0]} ~`;
 
-    let caption = `╮─━━━════〘 *Xnxx Search* 〙════━━━─╭
+    let caption = `╮─━━━════〘 *Xnxx* 〙════━━━─╭
 │✑ ↝ ${saludos} ↜🧞.
 │✑ ${menu}
 ╯─━━━══════〘 *+18* 〙══════━━━─╰`;
