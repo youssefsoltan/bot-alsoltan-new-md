@@ -87,7 +87,7 @@ const dir = [
 
 ];
 
-let handler = async (m, { conn, command, useprefix }) => {
+let handler = async (m, { conn, command, usedPrefix }) => {
 
 const fakecontact = { 
         'key': { 
@@ -107,7 +107,7 @@ const fakecontact = {
         
 let img = dir[Math.floor(Math.random() * dir.length)];
 
-conn.sendButton(m.chat, 'تفضل الخلفية 🧸❤️', '𝕊ℍ𝔸𝕎𝔸ℤ𝔸-𝔹𝕆𝕋', img, [['التالـي',`${useprefix + command}`]], null, null, fakecontact);
+conn.sendButton(m.chat, 'تفضل الخلفية 🧸❤️', '𝕊ℍ𝔸𝕎𝔸ℤ𝔸-𝔹𝕆𝕋', img, [['التالـي',`${usedPrefix + command}`]], null, null, fakecontact);
 
 //conn.sendFile(m.chat, dir[Math.floor(Math.random() * dir.length)], 'dado.webp', '', m);
   
