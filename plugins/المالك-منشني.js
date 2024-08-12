@@ -10,7 +10,8 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  const vn2 = './media/سقيتك كاس.mp3'; 
    
  let num = "201145624848"; //number owner
- let num2 = "3197010588870"; //number bot
+ let num2 = "201211251108"; //number bot
+ let num3 = "201204885212";
  let sender = m.sender.split('@')[0];
  
  if (m.mentionedJid && m.mentionedJid[0]) {
@@ -18,15 +19,23 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  let phoneNumber = m.mentionedJid[0].replace(/[^0-9]/g, '');
         
  if (phoneNumber === num) {
-          
+    
+       if (sender === num3) {
+ this.sendMessage(m.chat, {text: '*مرات مطورى القمر ❤️🧞*'}, {quoted: fakecontact});
+ return;
+ } else {
+                          
   this.sendMessage(m.chat, {audio: {url: vn2}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
  this.sendMessage(m.chat, {text: `*عاوز اي من مطوري ي @${m.sender.split('@')[0]} 🧞*`}, {quoted: fakecontact});
  return;
- 
+ }
  } else if (phoneNumber === num2) {
  
  if (sender === num) {
  this.sendMessage(m.chat, {text: '*احمم أنا هنا ي قلبي 🧞*'}, {quoted: fakecontact});
+ return;
+ } else  if (sender === num3) {
+ this.sendMessage(m.chat, {text: '*احمم أنا هنا ي مرات مطوري 🧞*'}, {quoted: fakecontact});
  return;
  } else {
           
@@ -34,9 +43,21 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  this.sendMessage(m.chat, {text: `*ايوا ي @${m.sender.split('@')[0]} عاوز أي 🧞*`}, {quoted: fakecontact});
  return;
  }
- } 
+  
+ } else if (phoneNumber === num3) {
+ 
+ if (sender === num) {
+ this.sendMessage(m.chat, {text: '*ايوا يعم ولعانه معاك حب براحتك وانا هراقب*'}, {quoted: fakecontact});
+ return;
+ } else {
+ this.sendMessage(m.chat, {audio: {url: vn}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
+ this.sendMessage(m.chat, {text: `*ايوا ي @${m.sender.split('@')[0]} عاوز أي من مرات مطوري 🧞*`}, {quoted: fakecontact});
+ return;
+ }
+ 
  } else {
  return;
  }}
+ }
 
 export default handler;
