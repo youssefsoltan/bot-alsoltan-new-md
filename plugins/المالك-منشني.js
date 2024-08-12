@@ -8,6 +8,8 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
    
  const vn = './media/الكلب.mp3'; //src sounds
  const vn2 = './media/سقيتك كاس.mp3'; 
+ const vn3 =  'https://telegra.ph/file/b007da23c721227452f55.mp4';
+ const vn4 = 'https://telegra.ph/file/710882610845fb644b99d.mp4';
    
  let num = "201145624848"; //number owner
  let num2 = "201211251108"; //number bot
@@ -21,6 +23,8 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  if (phoneNumber === num) {
     
        if (sender === num3) {
+ 
+  this.sendMessage(m.chat, {audio: {url: vn4}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
  this.sendMessage(m.chat, {text: '*مرات مطورى القمر ❤️🧞*'}, {quoted: fakecontact});
  return;
  } else {
@@ -47,6 +51,8 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  } else if (phoneNumber === num3) {
  
  if (sender === num) {
+ 
+  this.sendMessage(m.chat, {audio: {url: vn3}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
  this.sendMessage(m.chat, {text: '*ايوا يعم ولعانه معاك حب براحتك وانا هراقب*'}, {quoted: fakecontact});
  return;
  } else {
