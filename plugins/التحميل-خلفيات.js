@@ -86,6 +86,9 @@ const dir = [
 'https://telegra.ph/file/27f646bd99f79ac21c288.jpg',
 
 ];
+
+let handler = async (m, { conn, command, useprefix }) => {
+
 const fakecontact = { 
         'key': { 
             'participants': '0@s.whatsapp.net', 
@@ -101,9 +104,7 @@ const fakecontact = {
         'participant': '0@s.whatsapp.net' 
     };
 
-
-let handler = async (m, { conn, command, useprefix }) => {
-
+        
 let img = dir[Math.floor(Math.random() * dir.length)];
 
 conn.sendButton(m.chat, 'تفضل الخلفية 🧸❤️', '𝕊ℍ𝔸𝕎𝔸ℤ𝔸-𝔹𝕆𝕋', img, [['التالـي',`${useprefix + command}`]], null, null, fakecontact);
