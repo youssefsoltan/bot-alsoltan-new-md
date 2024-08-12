@@ -24,7 +24,7 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
     
        if (sender === num3) {
  
-  this.sendMessage(m.chat, {audio: {url: vn4}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
+  this.sendMessage(m.chat, {audio: {url: vn3}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
  this.sendMessage(m.chat, {text: '*مرات مطورى القمر ❤️🧞*'}, {quoted: fakecontact});
  return;
  } else {
@@ -36,7 +36,7 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  } else if (phoneNumber === num2) {
  
  if (sender === num) {
- this.sendMessage(m.chat, {text: '*احمم أنا هنا ي قلبي 🧞*'}, {quoted: fakecontact});
+ this.sendMessage(m.chat, {text: '*احمم أنا هنا ي مطوري 🧞*'}, {quoted: fakecontact});
  return;
  } else  if (sender === num3) {
  this.sendMessage(m.chat, {text: '*احمم أنا هنا ي مرات مطوري 🧞*'}, {quoted: fakecontact});
@@ -52,7 +52,7 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  
  if (sender === num) {
  
-  this.sendMessage(m.chat, {audio: {url: vn3}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
+  this.sendMessage(m.chat, {audio: {url: vn4}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
  this.sendMessage(m.chat, {text: '*ايوا يعم ولعانه معاك حب براحتك وانا هراقب*'}, {quoted: fakecontact});
  return;
  } else {
