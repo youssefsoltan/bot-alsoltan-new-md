@@ -38,7 +38,7 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  } else {
                           
   this.sendMessage(m.chat, {audio: {url: vn2}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
- this.sendMessage(m.chat, {text: txt1,mentions: [sender]}, {quoted: fakecontact});
+ this.sendMessage(m.chat, {text: txt1,mentions: conn.parseMention(txt1)}, {quoted: fakecontact});
  return;
  }
  } else if (phoneNumber === num2) {
@@ -52,7 +52,7 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  } else {
           
   this.sendMessage(m.chat, {audio: {url: vn}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
- this.sendMessage(m.chat, {text: txt3,mentions: [sender]}, {quoted: fakecontact});
+ this.sendMessage(m.chat, {text: txt3,mentions: conn.parseMention(txt3)}, {quoted: fakecontact});
  return;
  }
   
@@ -65,7 +65,7 @@ const fakecontact = { 'key': { 'participants': '0@s.whatsapp.net', 'remoteJid': 
  return;
  } else {
  this.sendMessage(m.chat, {audio: {url: vn}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: fakecontact});
- this.sendMessage(m.chat, {text: txt2,mentions: [sender]}, {quoted: fakecontact});
+ this.sendMessage(m.chat, {text: txt2,mentions: conn.parseMention(txt2)}, {quoted: fakecontact});
  return;
  }
  
