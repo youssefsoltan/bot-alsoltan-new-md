@@ -43,9 +43,9 @@ let handler = async (message, { conn, text, usedPrefix, command }) => {
           {
                                 name: "cta_url",
                                 buttonParamsJson: JSON.stringify({
-                                    display_text: "الدعم",                   
-                                    url: "https://chat.whatsapp.com/JGtNRFwfHJC8XholdKmVGS",
-                                    merchant_url: "https://chat.whatsapp.com/JGtNRFwfHJC8XholdKmVGS"
+                                    display_text: "الـدعـم",                   
+                                    url: "https://www.atom.bio/shawaza-2000/",
+                                    merchant_url: "https://www.atom.bio/shawaza-2000/"
                                 })
                             }, 
                       {
