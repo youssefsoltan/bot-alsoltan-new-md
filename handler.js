@@ -1187,7 +1187,7 @@ export async function handler(chatUpdate) {
       if (settings) {
         if (!('self' in settings)) settings.self = false;
         if (!('autoread' in settings)) settings.autoread = true;
-        if (!('autoread2' in settings)) settings.autoread2 = true;
+        if (!('autoread2' in settings)) settings.autoread2 = false;
         if (!('restrict' in settings)) settings.restrict = false;
         if (!('antiCall' in settings)) settings.antiCall = true;
         if (!('antiPrivate' in settings)) settings.antiPrivate = true;
@@ -1199,7 +1199,7 @@ export async function handler(chatUpdate) {
         global.db.data.settings[this.user.jid] = {
           self: false,
           autoread: true,
-          autoread2: true,
+          autoread2: false,
           restrict: false,
           antiCall: true,
           antiPrivate: true,
@@ -1705,7 +1705,7 @@ export async function groupsUpdate(groupsUpdate) {
   }
 }
 
-export async function callUpdate(callUpdate) {
+/*export async function callUpdate(callUpdate) {
   const isAnticall = global.db.data.settings[mconn.conn.user.jid].antiCall;
   if (!isAnticall) return;
   for (const nk of callUpdate) {
@@ -1741,46 +1741,150 @@ export async function deleteUpdate(message) {
     if (!chat?.antidelete) return
     if (!msg) return
     if (!msg?.isGroup) return
-    const antideleteMessage = `${tradutor.texto1[0]}
-${tradutor.texto1[1]} @${participant.split`@`[0]}
-${tradutor.texto1[2]} ${time}
-${tradutor.texto1[3]} ${date}\n
-${tradutor.texto1[4]}
-${tradutor.texto1[5]}`.trim();
-    await mconn.conn.sendMessage(msg.chat, { text: antideleteMessage, mentions: [participant] }, { quoted: msg })
-    mconn.conn.copyNForward(msg.chat, msg).catch(e => console.log(e, msg))
+        const antideleteMessage = `
+┏━━━━━━━━⬣  مضاد الحذف  ⬣━━━━━━━━■
+*■ المستخدم:* @${participant.split`@`[0]}
+*■ الساعه:* ${time}
+*■ التاريخ:* ${date}
+*■ ارسال الرساله المحذوفة...*
+    
+*■ لتعطيل هذا الامر, استعمل هذا الامر:*
+*■—◉ #اقفل مضادالحذف*
+┗━━━━━━━━⬣  مضاد الحذف  ⬣━━━━━━━━■`.trim();
+    await conn.sendMessage(msg.chat, { text: antideleteMessage, mentions: [participant] }, { quoted: msg })
+    conn.copyNForward(msg.chat, msg).catch(e => console.log(e, msg))
   } catch (e) {
     console.error(e)
   }
 }
 
-global.dfail = (type, m, conn) => {
+ global.dfail = (type, m, conn) => {
   const datas = global
   const idioma = datas.db.data.users[m.sender].language || 'ar';
   const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`))
   const tradutor = _translate.handler.dfail
 
   const msg = {
-    rowner: tradutor.texto1,
-    owner: tradutor.texto2,
-    mods: tradutor.texto3,
-    premium: tradutor.texto4,
-    group: tradutor.texto5,
-    private: tradutor.texto6,
-    admin: tradutor.texto7,
-    botAdmin: tradutor.texto8,
-    unreg: tradutor.texto9,
-    restrict: tradutor.texto10,
-  }[type];
-  const aa = { quoted: m, userJid: conn.user.jid };
-  const prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: tradutor.texto11[0], body: tradutor.texto11[1], thumbnail: {url: img2}, sourceUrl: tradutor.texto11[2] } } } }, aa);
- 
- if (msg){ 
 
-   conn.sendMessage(m.chat, { text: msg, contextInfo: { externalAdReply: { title: tradutor.texto11[0], body: tradutor.texto11[1], thumbnail: {url: img2}, sourceUrl: tradutor.texto11[2] } } } }, {quoted: m});
-   return conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id });
- }
-         };
+      rowner: '╮───────────────╭ـ\n│ *➣ الميزه دي للمطور بس! ┇🧞*\n╯───────────────╰ـ',
+      owner: '╮───────────────╭ـ\n│ *➣ الميزه دي للمطور بس! ┇🧞*\n╯───────────────╰ـ',
+      mods: '╮───────────────╭ـ\n│ *➣ الميزه دي لمالك البوت فقط! ┇🧞*\n╯───────────────╰ـ',
+      premium: '╮───────────────╭ـ\n│ *➣ الميزه دي للأعضاء المميزين فقط! ┇🧞*\n╯───────────────╰ـ',
+      group: '╮───────────────╭ـ\n│ *➣ الميزه دي في الجروبات فقط! ┇🧞*\n╯───────────────╰ـ',
+      private: '╮───────────────╭ـ\n│ *➣ الميزه دي في الخاص فقط! ┇🧞*\n╯───────────────╰ـ',
+      admin: '╮───────────────╭ـ\n│ *➣ الميزه دي للادمنز - المشرفين فقط! ┇🧞*\n╯───────────────╰ـ',
+      botAdmin: '╮───────────────╭ـ\n│ *➣ ارفع البوت ادمن الاول! ┇🧞*\n╯───────────────╰ـ',
+      unreg: '╮───────────────╭ـ\n│ *[ لحظة !! انت مش مسجل ]*\n│ *『 سجل الامر عشان تفعله 』*\n│ *➣ #تسجيل الاسم.السن\n│ *➣مثل : #تسجيل سوكونا.18\n╯───────────────╰ـ',
+      restrict: '╮───────────────╭ـ\n│ *➣ تم الغاء الأمر من قبل المطور! ┇🧞*\n╯───────────────╰ـ',
+  }[type];
+  
+  //const aa = { quoted: m, userJid: conn.user.jid };
+  //const prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: tradutor.texto11[0], body: tradutor.texto11[1], thumbnail: {url: img2}, sourceUrl: tradutor.texto11[2] } } } }, aa);
+// if (msg) return conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id });
+ const img2 =  'https://telegra.ph/file/098c5133099eb3f0fbb54.jpg';
+ if (msg) return conn.sendMessage(m.chat, { text: msg, contextInfo: { externalAdReply: { showAdAttribution: true, title: '[❗] تحذير', body: '[❗] لا تعبث فيما لل يعنيك', thumbnailUrl: img2, mediaUrl: img2, mediaType: 1, sourceUrl: 'https://www.atom.bio/shawaza-2000/', renderLargerThumbnail: true } } } }, {quoted: m});
+     
+        };*/
+export async function callUpdate(callUpdate) {
+  const settings = global.db.data.settings[conn.user.jid];
+  if (!settings?.antiCall) return;
+
+  for (const nk of callUpdate) {
+    if (!nk.isGroup && nk.status === 'offer') {
+      const callType = nk.isVideo ? 'مكالمات الفيديو' : 'المكالمات';
+      const message = `مرحباً *@${nk.from.split('@')[0]}*، ${callType} غير مسموح بها، سيتم حظرك.\n-\nإذا كنت قد اتصلت عن طريق الخطأ، يرجى الاتصال بصانع البوت ليقوم بإلغاء حظرك!`;
+
+      const callmsg = await conn.reply(nk.from, message, false, { mentions: [nk.from] });
+
+      const ownerContacts = global.owner.filter(([id, isCreator]) => id && isCreator);
+      await conn.sendContact(nk.from, ownerContacts.map(([id, name]) => [id, name]), false, { quoted: callmsg });
+
+      await conn.updateBlockStatus(nk.from, 'block');
+    }
+  }
+}
+
+
+export async function deleteUpdate(message) {
+  const datas = global;
+  const id = message.participant; // احصل على معرّف المستخدم
+  const idioma = datas.db.data.users[id]?.language || 'ar';
+  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`));
+  const tradutor = _translate.handler.deleteUpdate;
+
+  const d = new Date(new Date().getTime() + 3600000);
+  const date = d.toLocaleDateString('ar', { day: 'numeric', month: 'long', year: 'numeric' });
+  const time = d.toLocaleString('ar-EG', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+
+  try {
+    const { fromMe, id, participant } = message;
+    if (fromMe) return;
+
+    const msg = mconn.conn.serializeM(await mconn.conn.loadMessage(id));
+    const chat = global.db.data.chats[msg?.chat] || {};
+    if (!chat.antidelete || !msg || !msg.isGroup) return;
+
+    const antideleteMessage = `
+┏━━━━━━━━⬣  مضاد الحذف  ⬣━━━━━━━━■
+*■ المستخدم:* @${participant.split('@')[0]}
+*■ الساعه:* ${time}
+*■ التاريخ:* ${date}
+*■ ارسال الرساله المحذوفة...*
+
+*■ لتعطيل هذا الامر, استعمل هذا الامر:*
+*■—◉ #اقفل مضادالحذف*
+┗━━━━━━━━⬣  مضاد الحذف  ⬣━━━━━━━━■`.trim();
+
+    await conn.sendMessage(msg.chat, { text: antideleteMessage, mentions: [participant] }, { quoted: msg });
+    await conn.copyNForward(msg.chat, msg).catch(e => console.log(e, msg));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+
+global.dfail = (type, m, conn) => {
+  const datas = global;
+  const idioma = datas.db.data.users[m.sender].language || 'ar';
+  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`));
+  const tradutor = _translate.handler.dfail;
+
+  const messages = {
+    rowner: '╮───────────────╭ـ\n│ *➣ الميزه دي للمطور بس! ┇🧞*\n╯───────────────╰ـ',
+    owner: '╮───────────────╭ـ\n│ *➣ الميزه دي للمطور بس! ┇🧞*\n╯───────────────╰ـ',
+    mods: '╮───────────────╭ـ\n│ *➣ الميزه دي لمالك البوت فقط! ┇🧞*\n╯───────────────╰ـ',
+    premium: '╮───────────────╭ـ\n│ *➣ الميزه دي للأعضاء المميزين فقط! ┇🧞*\n╯───────────────╰ـ',
+    group: '╮───────────────╭ـ\n│ *➣ الميزه دي في الجروبات فقط! ┇🧞*\n╯───────────────╰ـ',
+    private: '╮───────────────╭ـ\n│ *➣ الميزه دي في الخاص فقط! ┇🧞*\n╯───────────────╰ـ',
+    admin: '╮───────────────╭ـ\n│ *➣ الميزه دي للادمنز - المشرفين فقط! ┇🧞*\n╯───────────────╰ـ',
+    botAdmin: '╮───────────────╭ـ\n│ *➣ ارفع البوت ادمن الاول! ┇🧞*\n╯───────────────╰ـ',
+    unreg: '╮───────────────╭ـ\n│ *[ لحظة !! انت مش مسجل ]*\n│ *『 سجل الامر عشان تفعله 』*\n│ *➣ #تسجيل الاسم.السن\n│ *➣مثل : #تسجيل سوكونا.18\n╯───────────────╰ـ',
+    restrict: '╮───────────────╭ـ\n│ *➣ تم الغاء الأمر من قبل المطور! ┇🧞*\n╯───────────────╰ـ',
+  };
+
+  const msg = messages[type];
+  const img2 = 'https://telegra.ph/file/098c5133099eb3f0fbb54.jpg';
+
+  if (msg) {
+    return conn.sendMessage(m.chat, {
+      text: msg,
+      contextInfo: {
+        externalAdReply: {
+          showAdAttribution: true,
+          title: '[❗] تحذير',
+          body: '[❗] لا تعبث فيما لا يعنيك',
+          thumbnailUrl: img2,
+          mediaUrl: img2,
+          mediaType: 1,
+          sourceUrl: 'https://www.atom.bio/shawaza-2000/',
+          renderLargerThumbnail: true
+        }
+      }
+    }, { quoted: m });
+  }
+};
+
+
 
 const file = global.__filename(import.meta.url, true);
 watchFile(file, async () => {
