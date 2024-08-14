@@ -1,14 +1,14 @@
 /*
-
-- Agradecimiento a la comunidad de "WSApp • Developers"
- * https://chat.whatsapp.com/FaQunmlp9BmDRk6lEEc9FJ
-- Agradecimiento especial a Carlos (PT) por los codigos de interactiveMessage (botones)
-- Agradecimiento a Darlyn1234 por la estructura de uso en este codigo y quoted
- * https://github.com/darlyn1234
-- Adaptacion de imagen en tipo lista, codigo y funcionamiento por BrunoSobrino
- * https://github.com/BrunoSobrino
-
+╮────────────────────────╭ـ
+│ By : 𝗦𝗔𝗬𝗘𝗗-𝗦𝗛𝗔𝗪𝗔𝗭𝗔 🧞
+│ Number : https://wa.me/201145624848
+│ Community : https://chat.whatsapp.com/Hg4F5jQ9Z9r1lUH6I1jkhI
+│ Group Support : https://chat.whatsapp.com/JGtNRFwfHJC8XholdKmVGS
+│ Chanel : https://whatsapp.com/channel/0029Vael6wMJP20ze3IXJk0z
+╯────────────────────────╰ـ 
 */
+
+
 import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys'
 import yts from 'yt-search';
 import fs from 'fs';
@@ -23,9 +23,10 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
   if (!text) throw `⚠️ *${traductor.texto1}*`;
     
   if (device !== 'desktop' || device !== 'web') {      
+  await conn.sendMessage(m.chat, { react: { text: '⏳', key: m.key } });
     
   const results = await yts(text);
-  const videos = results.videos.slice(0, 20);
+  const videos = results.videos.slice(0, 30);
   const randomIndex = Math.floor(Math.random() * videos.length);
   const randomVideo = videos[randomIndex];
 
@@ -51,25 +52,25 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
                   header: video.title,
                   title: video.author.name,
                   description: '🎧 صـوت',
-                  id: `${prefijo}play.1 ${video.url}`
+                  id: `${prefijo}mp3.1 ${video.url}`
                 },
                   {
                   header: video.title,
                   title: video.author.name,
                   description: '📼 ملـف صـوت',
-                  id: `${prefijo}صوتيات ${video.url}`
+                  id: `${prefijo}mp3.2 ${video.url}`
                 },
                 {
                   header: video.title,
                   title: video.author.name,
                   description: '🎥 فيـديو',
-                  id: `${prefijo}play.2 ${video.url}`
+                  id: `${prefijo}mp4.1 ${video.url}`
                 },                
                   {
                   header: video.title,
                   title: video.author.name,
                   description: '🎬 ملـف فيـديو',
-                  id: `${prefijo}فيديوهات ${video.url}`
+                  id: `${prefijo}mp4.2 ${video.url}`
                 }
               ]
             }))
@@ -87,6 +88,8 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
                 },
             },
         }, { userJid: conn.user.jid, quoted: m })
+        
+        await conn.sendMessage(m.chat, { react: { text: '✔️', key: m.key } });
       conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id});
 
   } else {
