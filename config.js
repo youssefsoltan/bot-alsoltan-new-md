@@ -11,23 +11,23 @@ global.botnumber = ""
 global.confirmCode = ""
 
 global.owner = [
-  ['201145624848', '𝗦𝗔𝗬𝗘𝗗-𝗦𝗛𝗔𝗪𝗔𝗭𝗔', true],
-  ['201204885212','𝐷𝐼𝑁𝐴 𝑀𝑌 𝑊𝐼𝐹𝐸', true]
+  ['201277272498', 'YoUsSeF Al SoLtAn', true],
+  ['201277272498','YoUsSeF Al SoLtAn', true]
 ];
 
-global.ownername = '𝚂𝙰𝚈𝙴𝙳-𝚂𝙷𝙰𝚆𝙰𝚉𝙰';
-global.ownernumber = '201145624848';
+global.ownername = 'YoUsSeF Al SoLtAn';
+global.ownernumber = '201277272498';
 
-global.suittag = ['201145624848', '201204885212'];
-global.prems = ['201145624848', '201204885212'];
+global.suittag = ['201277272498', '201277272498'];
+global.prems = ['201277272498', '201277272498'];
 
-global.packname = '𝗦𝗔𝗬𝗘𝗗-𝗦𝗛𝗔𝗪𝗔𝗭𝗔';
-global.author = '𝐒𝐇𝐀𝐖𝐀𝐙𝐀-𝐁𝐎𝐓';
-global.wm = '𝐒𝐇𝐀𝐖𝐀𝐙𝐀-𝐁𝐎𝐓';
-global.titulowm = '𝐒𝐇𝐀𝐖𝐀𝐙𝐀-𝐁𝐎𝐓';
-global.titulowm2 = `𝐒𝐇𝐀𝐖𝐀𝐙𝐀-𝐁𝐎𝐓`
-global.igfg = '𝐒𝐇𝐀𝐖𝐀𝐙𝐀-𝐁𝐎𝐓';
-global.wait = '*「 ▓▓▓▓▓▒▒▒▒░░░ 」 صلي على النبي ي حوب 🧞 ...*';
+global.packname = '© BOT AL SOLTAN';
+global.author = 'Bot By YoUsSeF Al SoLtAn';
+global.wm = 'Bot By YoUsSeF Al SoLtAn';
+global.titulowm = 'Bot By YoUsSeF Al SoLtAn';
+global.titulowm2 = `Bot By YoUsSeF Al SoLtAn`
+global.igfg = 'Bot Al SoLtAn';
+global.wait = '*[ ⏳ ] انتظر جاري التحميل*...\n\n*https://whatsapp.com/channel/0029VaL2bnW0rGiPZq8B5S2M*';
 global.styel1 = '┌─ 〘 ';
 global.styel2 = ' 〙 ─ ⳹';
 global.styel3 = '│✑ 「 ';
@@ -66,18 +66,18 @@ global.mes = d.toLocaleDateString('ar', {month: 'long'});
 global.año = d.toLocaleDateString('ar', {year: 'numeric'});
 global.tiempo = d.toLocaleString('ar-EG', {hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true});
 
-global.wm2 = `${dia} ${fecha}\n𝕊ℍ𝔸𝕎𝔸ℤ𝔸-𝔹𝕆𝕋`;
-global.gt = '𝐒𝐇𝐀𝐖𝐀𝐙𝐀-𝐁𝐎𝐓';
-global.mysticbot = '𝐒𝐇𝐀𝐖𝐀𝐙𝐀-𝐁𝐎𝐓';
-global.channel = 'https://whatsapp.com/channel/0029Vaein6eInlqIsCXpDs3y';
+global.wm2 = `${dia} ${fecha}\n© BOT AL SOLTAN`;
+global.gt = '© BOT AL SOLTAN';
+global.mysticbot = '© BOT AL SOLTAN';
+global.channel = '*https://whatsapp.com/channel/0029VaL2bnW0rGiPZq8B5S2M*';
 global.md = 'https://github.com/BrunoSobrino/TheMystic-Bot-MD';
 global.mysticbot = 'https://github.com/BrunoSobrino/TheMystic-Bot-MD';
 
-global.waitt = '*━────── •●• ──────━*\n> [ 🧞 ] جاري التحميل ...\n*━────── •●• ──────━*';
-global.waittt = '*━────── •●• ──────━*\n> [ 🧞 ] جاري التحميل ...\n*━────── •●• ──────━*';
-global.waitttt = '*[*━────── •●• ──────━*\n> [ 🧞 ] جاري التحميل ...\n*━────── •●• ──────━*';
+global.waitt = '*━────── •●• ──────━*\n> [ ⏳ ] جاري التحميل ...\n*━────── •●• ──────━*';
+global.waittt = '*━────── •●• ──────━*\n> [ ⏳ ] جاري التحميل ...\n*━────── •●• ──────━*';
+global.waitttt = '*[*━────── •●• ──────━*\n> [ ⏳ ] جاري التحميل ...\n*━────── •●• ──────━*';
 
-global.nomorown = '201145624848';
+global.nomorown = '201277272498';
 global.pdoc = ['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/msword', 'application/pdf', 'text/rtf'];
 
 global.cmenut = '❖––––––『';
