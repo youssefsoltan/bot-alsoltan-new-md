@@ -416,15 +416,15 @@ global.reloadHandler = async function(restatConn) {
 
   // Para cambiar estos mensajes, solo los archivos en la carpeta de language, 
   // busque la clave "handler" dentro del json y cámbiela si es necesario
-  conn.welcome = '👋 ¡Bienvenido/a!\n@user';
-  conn.bye = '👋 ¡Hasta luego!\n@user';
-  conn.spromote = '*[ ℹ️ ] @user Fue promovido a administrador.*';
-  conn.sdemote = '*[ ℹ️ ] @user Fue degradado de administrador.*';
-  conn.sDesc = '*[ ℹ️ ] La descripción del grupo ha sido modificada.*';
-  conn.sSubject = '*[ ℹ️ ] El nombre del grupo ha sido modificado.*';
-  conn.sIcon = '*[ ℹ️ ] Se ha cambiado la foto de perfil del grupo.*';
-  conn.sRevoke = '*[ ℹ️ ] El enlace de invitación al grupo ha sido restablecido.*';
-
+conn.welcome = '*• نورت الجروب يحب 👋🏻!*\n*━━━━━━━━━━━━━━━━━━━*\n\n🍧 *• الرقم:* @user\n\n*⚠️ شوف الوصف يحب*\n\n@desc\n\n*━━━━━━━━━━━━━━━━━━━*'
+  conn.bye = '*• المركب اللي تودي مترجعش 🚯*\n*━━━━━━━━━━━━━━━━━━━*\n\n🍧 *• الرقم:* @user\n\n*━━━━━━━━━━━━━━━━━━━*'
+  conn.spromote = '*[ 🤠 ] @user مبروك الترقيه*';
+  conn.sdemote = '*[ 🥲 ] @user لقد اصبحت عضو مثل باقي الاعضاء*';
+  conn.sDesc = '*[ 📌 ] تم تعديل وصف المجموعه.*';
+  conn.sSubject = '*[ 📌 ] تم تغيير اسم المجموعة.*';
+  conn.sIcon = '*[ 📌 ] تم تغيير صورة الملف الشخصي للمجموعة.*';
+  conn.sRevoke = '*[ 📌 ] تمت إعادة تعيين رابط دعوة المجموعة.*';
+  
   conn.handler = handler.handler.bind(global.conn);
   conn.participantsUpdate = handler.participantsUpdate.bind(global.conn);
   conn.groupsUpdate = handler.groupsUpdate.bind(global.conn);
@@ -577,7 +577,7 @@ setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return;
   const _uptime = process.uptime() * 1000;
   const uptime = clockString(_uptime);
-  const bio = `[ ⏳ ] Uptime: ${uptime}`;
+  const bio = `تم صناعه البوت بواسطه يوسف السلطان وقت العمل:\n\n ${uptime}`;
   await conn.updateProfileStatus(bio).catch((_) => _);
 }, 60000);
 function clockString(ms) {
@@ -585,6 +585,6 @@ function clockString(ms) {
   const h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24;
   const m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60;
   const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60;
-  return [d, 'd ️', h, 'h ', m, 'm ', s, 's '].map((v) => v.toString().padStart(2, 0)).join('');
+  return [d, 'يوم ️', h, 'ساعه ', m, 'دقيقه ', s, 'ثانيه '].map((v) => v.toString().padStart(2, 0)).join('');
 }
 _quickTest().catch(console.error);
