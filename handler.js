@@ -1634,7 +1634,7 @@ export async function participantsUpdate({ id, participants, action }) {
       if (chat.welcome && !chat?.isBanned) {
         const groupMetadata = await m.conn.groupMetadata(id) || (conn.chats[id] || {}).metadata;
         for (const user of participants) {
-          let pp = 'https://telegra.ph/file/098c5133099eb3f0fbb54.jpg';
+          let pp = 'https://telegra.ph/file/d5165773a02c22a09b195.jpg';
           try {
             pp = await m.conn.profilePictureUrl(user, 'image');
           } catch (e) {
