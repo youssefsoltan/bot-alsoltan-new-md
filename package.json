@@ -40,9 +40,6 @@
     "@shineiichijo/marika": "^2.0.6",
     "@vitalets/google-translate-api": "^8.0.0",
     "@whiskeysockets/baileys": "npm:@whiskeysockets/baileys@6.7.2",
-		"@ibaraki-douji/pixivts": "^2.4.1",
-		"@bochilteam/scraper-sosmed": "^1.0.5",
-    "@StarlightsTeam/Scraper": "github:StarlightsTeam/StarlightsTeam-Scraper",
     "acrcloud": "^1.4.0",
     "api-dylux": "^1.6.2",
     "aptoide-scraper": "^1.0.1",
@@ -103,21 +100,10 @@
     "ytdl-core": "github:khlevon/node-ytdl-core#v4.11.4-patch.2"
   },
   "optionalDependencies": {
-    "@xct007/frieren-scraper": "github:xct007/frieren-scraper",
-    "@vitalets/google-translate-api": "^9.2.0",
-		"bing-scraper": "^1.4.11",
-		"canvafy": "^7.0.4",
-		"hmfull": "^2.4.3",
-		"rembg-node": "^2.0.1",
-		"sagiri": "^3.4.0",
-		"scathach-api": "^1.0.16",
-		"tinycolor2": "^1.6.0"
+    "@xct007/frieren-scraper": "github:xct007/frieren-scraper"
   },
   "devDependencies": {
     "eslint": "^8.45.0",
     "eslint-config-google": "^0.14.0"
-  },
-	"overrides": {
-		"sharp": "^0.32.2"
   }
 }
