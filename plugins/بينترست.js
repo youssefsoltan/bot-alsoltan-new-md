@@ -44,16 +44,16 @@ let handler = async (message, { conn, text, usedPrefix, command }) => {
                                 name: "cta_url",
                                 buttonParamsJson: JSON.stringify({
                                     display_text: "الـدعـم",                   
-                                    url: "https://www.atom.bio/shawaza-2000/",
-                                    merchant_url: "https://www.atom.bio/shawaza-2000/"
+                                    url: "https://chat.whatsapp.com/JwSTjeM8zk96j5sgcvW64C",
+                                    merchant_url: "https://chat.whatsapp.com/JwSTjeM8zk96j5sgcvW64C"
                                 })
                             }, 
                       {
                                 name: "cta_url",
                                 buttonParamsJson: JSON.stringify({
                                     display_text: "قـنـاتـي",                   
-                                    url: "https://whatsapp.com/channel/0029Vael6wMJP20ze3IXJk0z",
-                                    merchant_url: "https://whatsapp.com/channel/0029Vael6wMJP20ze3IXJk0z"
+                                    url: "https://whatsapp.com/channel/0029VaL2bnW0rGiPZq8B5S2M",
+                                    merchant_url: "https://whatsapp.com/channel/0029VaL2bnW0rGiPZq8B5S2M"
                                 })
                             }, 
             {
