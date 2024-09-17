@@ -1,37 +1,32 @@
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1';
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1'; 
 import './config.js';
 import './api.js';
 import {createRequire} from 'module';
 import path, {join} from 'path';
 import {fileURLToPath, pathToFileURL} from 'url';
 import {platform} from 'process';
-import * as ws from 'ws';
-import {readdirSync, statSync, unlinkSync, existsSync, readFileSync, rmSync, watch, unlink} from 'fs';
+import {readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch} from 'fs';
 import yargs from 'yargs';
 import {spawn} from 'child_process';
 import lodash from 'lodash';
 import chalk from 'chalk';
 import syntaxerror from 'syntax-error';
-import {tmpdir} from 'os';
 import {format} from 'util';
-import P from 'pino';
 import pino from 'pino';
 import Pino from 'pino';
 import {Boom} from '@hapi/boom';
-import {makeWASocket, protoType, serialize} from './lib/simple.js';
+import {makeWASocket, protoType, serialize} from './simple.js';
 import {Low, JSONFile} from 'lowdb';
-import {mongoDB, mongoDBV2} from './lib/mongoDB.js';
 import store from './lib/store.js';
-const {proto} = (await import('@whiskeysockets/baileys')).default;
-const {DisconnectReason, useMultiFileAuthState, MessageRetryMap, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, jidNormalizedUser, PHONENUMBER_MCC} = await import('@whiskeysockets/baileys');
+const {DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, jidNormalizedUser, PHONENUMBER_MCC} = await import("baileys");
 import readline from 'readline';
 import NodeCache from 'node-cache';
-const {CONNECTING} = ws;
 const {chain} = lodash;
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000;
-
+let stopped = 'close';  
 protoType();
 serialize();
+
 
 global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') {
   return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString();
@@ -40,21 +35,16 @@ global.__filename = function filename(pathURL = import.meta.url, rmPrefix = plat
 }; global.__require = function require(dir = import.meta.url) {
   return createRequire(dir);
 };
-
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({...query, ...(apikeyqueryname ? {[apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name]} : {})})) : '');
-
 global.timestamp = {start: new Date};
 global.videoList = [];
 global.videoListXXX = [];
-
 const __dirname = global.__dirname(import.meta.url);
-
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse());
 global.prefix = new RegExp('^[' + (opts['prefix'] || '*/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-.@').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']');
-
 global.db = new Low(/https?:\/\//.test(opts['db'] || '') ? new cloudDBAdapter(opts['db']) : new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`));
 
-global.DATABASE = global.db; 
+
 global.loadDatabase = async function loadDatabase() {
   if (global.db.READ) {
     return new Promise((resolve) => setInterval(async function() {
@@ -108,9 +98,9 @@ loadChatgptDB();
 
 /* ------------------------------------------------*/
 
-global.authFile = `MysticSession`;
-const {state, saveState, saveCreds} = await useMultiFileAuthState(global.authFile);
-const msgRetryCounterMap = (MessageRetryMap) => { };
+
+const {state, saveCreds} = await useMultiFileAuthState(global.authFile);
+const msgRetryCounterMap = () => { };
 const msgRetryCounterCache = new NodeCache()
 const {version} = await fetchLatestBaileysVersion();
 let phoneNumber = global.botnumber
@@ -128,17 +118,13 @@ opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${authFile}/creds.json`)) {
 do {
-let lineM = '⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ ⋯ 》'
 opcion = await question('[ ℹ️ ] Seleccione una opción:\n1. Con código QR\n2. Con código de texto de 8 dígitos\n---> ')
-//if (fs.existsSync(`./${authFile}/creds.json`)) {
-//console.log(chalk.bold.redBright(`PRIMERO BORRE EL ARCHIVO ${chalk.bold.greenBright("creds.json")} QUE SE ENCUENTRA EN LA CARPETA ${chalk.bold.greenBright(authFile)} Y REINICIE.`))
-//process.exit()
 if (!/^[1-2]$/.test(opcion)) {
 console.log('[ ❗ ] Por favor, seleccione solo 1 o 2.\n')
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${authFile}/creds.json`))
 }
 
-console.info = () => {} //dejará de aparecer la molesta "pre-key"
+//console.info = () => {} // https://github.com/skidy89/baileys actualmente no muestra logs molestos en la consola
 const connectionOptions = {
 logger: pino({ level: 'silent' }),
 printQRInTerminal: opcion == '1' ? true : methodCodeQR ? true : false,
@@ -148,12 +134,21 @@ auth: {
 creds: state.creds,
 keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
 },
+// so you gonna steal this?? https://github.com/skidy89
+// waWebSocketUrl provides better decryption.
+waWebSocketUrl: 'wss://web.whatsapp.com/ws/chat?ED=CAIICA', 
 markOnlineOnConnect: true, 
 generateHighQualityLinkPreview: true, 
-getMessage: async (clave) => {
-let jid = jidNormalizedUser(clave.remoteJid)
-let msg = await store.loadMessage(jid, clave.id)
+getMessage: async (key) => {
+let jid = jidNormalizedUser(key.remoteJid)
+let msg = await store.loadMessage(jid, key.id)
 return msg?.message || ""
+},
+patchMessageBeforeSending: async (message) => { //fix mass loss messages
+let messages = 0
+global.conn.uploadPreKeysToServerIfRequired()
+messages++
+return message
 },
 msgRetryCounterCache,
 msgRetryCounterMap,
@@ -165,10 +160,6 @@ global.conn = makeWASocket(connectionOptions);
 
 if (!fs.existsSync(`./${authFile}/creds.json`)) {
 if (opcion === '2' || methodCode) {
-//if (fs.existsSync(`./${authFile}/creds.json`)) {
-//console.log(chalk.bold.redBright(`PRIMERO BORRE EL ARCHIVO ${chalk.bold.greenBright("creds.json")} QUE SE ENCUENTRA EN LA CARPETA ${chalk.bold.greenBright(authFile)} Y REINICIE.`))
-//process.exit()
-//}
 opcion = '2'
 if (!conn.authState.creds.registered) {  
 if (MethodMobile) throw new Error('No se puede usar un código de emparejamiento con la API móvil')
@@ -274,13 +265,13 @@ fs.watch(dirToWatchccc, (eventType, filename) => {
 
 function purgeSession() {
 let prekey = []
-let directorio = readdirSync("./MysticSession")
+let directorio = readdirSync("./Session")
 let filesFolderPreKeys = directorio.filter(file => {
 return file.startsWith('pre-key-') /*|| file.startsWith('session-') || file.startsWith('sender-') || file.startsWith('app-') */
 })
 prekey = [...prekey, ...filesFolderPreKeys]
 filesFolderPreKeys.forEach(files => {
-unlinkSync(`./MysticSession/${files}`)
+unlinkSync(`./Session/${files}`)
 })
 } 
 
@@ -305,7 +296,7 @@ console.log(chalk.bold.red(`[ ℹ️ ] Algo salio mal durante la eliminación, a
 }}
 
 function purgeOldFiles() {
-const directories = ['./MysticSession/', './jadibts/']
+const directories = ['./Session/', './jadibts/']
 const oneHourAgo = Date.now() - (60 * 60 * 1000)
 directories.forEach(dir => {
 readdirSync(dir, (err, files) => {
@@ -328,12 +319,11 @@ async function connectionUpdate(update) {
   
 
   const {connection, lastDisconnect, isNewLogin} = update;
-  global.stopped = connection;
+  stopped = connection;
   if (isNewLogin) conn.isInit = true;
   const code = lastDisconnect?.error?.output?.statusCode || lastDisconnect?.error?.output?.payload?.statusCode;
   if (code && code !== DisconnectReason.loggedOut && conn?.ws.socket == null) {
     await global.reloadHandler(true).catch(console.error);
-    //console.log(await global.reloadHandler(true).catch(console.error));
     global.timestamp.connect = new Date;
   }
   if (global.db.data == null) loadDatabase();
@@ -346,7 +336,7 @@ if (opcion == '1' || methodCodeQR) {
   }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
 if (reason == 405) {
-await fs.unlinkSync("./MysticSession/" + "creds.json")
+await fs.unlinkSync("./Session/" + "creds.json")
 console.log(chalk.bold.redBright(`[ ⚠ ] Conexión replazada, Por favor espere un momento me voy a reiniciar...\nSi aparecen error vuelve a iniciar con : npm start`)) 
 process.send('reset')}
 if (connection === 'close') {
@@ -376,9 +366,6 @@ if (connection === 'close') {
         await global.reloadHandler(true).catch(console.error);
     }
 }
-  /*if (connection == 'close') {
-    console.log(chalk.yellow(`🚩ㅤConexion cerrada, por favor borre la carpeta ${global.authFile} y reescanee el codigo QR`));
-  }*/
 }
 
 process.on('uncaughtException', console.error);
@@ -416,15 +403,15 @@ global.reloadHandler = async function(restatConn) {
 
   // Para cambiar estos mensajes, solo los archivos en la carpeta de language, 
   // busque la clave "handler" dentro del json y cámbiela si es necesario
-conn.welcome = '*• نورت الجروب يحب 👋🏻!*\n*━━━━━━━━━━━━━━━━━━━*\n\n🍧 *• الرقم:* @user\n\n*⚠️ شوف الوصف يحب*\n\n@desc\n\n*━━━━━━━━━━━━━━━━━━━*'
-  conn.bye = '*• المركب اللي تودي مترجعش 🚯*\n*━━━━━━━━━━━━━━━━━━━*\n\n🍧 *• الرقم:* @user\n\n*━━━━━━━━━━━━━━━━━━━*'
-  conn.spromote = '*[ 🤠 ] @user مبروك الترقيه*';
-  conn.sdemote = '*[ 🥲 ] @user لقد اصبحت عضو مثل باقي الاعضاء*';
-  conn.sDesc = '*[ 📌 ] تم تعديل وصف المجموعه.*';
-  conn.sSubject = '*[ 📌 ] تم تغيير اسم المجموعة.*';
-  conn.sIcon = '*[ 📌 ] تم تغيير صورة الملف الشخصي للمجموعة.*';
-  conn.sRevoke = '*[ 📌 ] تمت إعادة تعيين رابط دعوة المجموعة.*';
-  
+  conn.welcome = '👋 ¡Bienvenido/a!\n@user';
+  conn.bye = '👋 ¡Hasta luego!\n@user';
+  conn.spromote = '*[ ℹ️ ] @user Fue promovido a administrador.*';
+  conn.sdemote = '*[ ℹ️ ] @user Fue degradado de administrador.*';
+  conn.sDesc = '*[ ℹ️ ] La descripción del grupo ha sido modificada.*';
+  conn.sSubject = '*[ ℹ️ ] El nombre del grupo ha sido modificado.*';
+  conn.sIcon = '*[ ℹ️ ] Se ha cambiado la foto de perfil del grupo.*';
+  conn.sRevoke = '*[ ℹ️ ] El enlace de invitación al grupo ha sido restablecido.*';
+
   conn.handler = handler.handler.bind(global.conn);
   conn.participantsUpdate = handler.participantsUpdate.bind(global.conn);
   conn.groupsUpdate = handler.groupsUpdate.bind(global.conn);
@@ -452,35 +439,6 @@ conn.welcome = '*• نورت الجروب يحب 👋🏻!*\n*━━━━━�
   return true;
 };
 
-/*
-
-const pluginFolder = join(__dirname, './plugins');
-const pluginFilter = filename => /\.js$/.test(filename);
-global.plugins = {};
-
-async function filesInit(folder) {
-  for (let filename of readdirSync(folder).filter(pluginFilter)) {
-    try {
-      let file = join(folder, filename);
-      const module = await import(file);
-      global.plugins[file] = module.default || module;
-    } catch (e) {
-      console.error(e);
-      delete global.plugins[filename];
-    }
-  }
-
-  for (let subfolder of readdirSync(folder)) {
-    const subfolderPath = join(folder, subfolder);
-    if (statSync(subfolderPath).isDirectory()) {
-      await filesInit(subfolderPath);
-    }
-  }
-}
-
-await filesInit(pluginFolder).then(_ => Object.keys(global.plugins)).catch(console.error);
-
-*/
 
 const pluginFolder = global.__dirname(join(__dirname, './plugins/index'));
 const pluginFilter = (filename) => /\.js$/.test(filename);
@@ -550,41 +508,34 @@ async function _quickTest() {
       })]);
   }));
   const [ffmpeg, ffprobe, ffmpegWebp, convert, magick, gm, find] = test;
-  const s = global.support = {ffmpeg, ffprobe, ffmpegWebp, convert, magick, gm, find};
+  global.support = {ffmpeg, ffprobe, ffmpegWebp, convert, magick, gm, find};
   Object.freeze(global.support);
 }
 setInterval(async () => {
-  if (stopped === 'close' || !conn || !conn.user) return;
-  const a = await clearTmp();
-  //console.log(chalk.cyanBright(`\n▣───────────[ 𝙰𝚄𝚃𝙾𝙲𝙻𝙴𝙰𝚁TMP ]──────────────···\n│\n▣─❧ 𝙰𝚁𝙲𝙷𝙸𝚅𝙾𝚂 𝙴𝙻𝙸𝙼𝙸𝙽𝙰𝙳𝙾𝚂 ✅\n│\n▣───────────────────────────────────────···\n`));
+  if (stopped === 'close' || !conn || !conn?.user) return;
+  await clearTmp();
 }, 180000);
+
 setInterval(async () => {
-  if (stopped === 'close' || !conn || !conn.user) return;
-  await purgeSession();
-  //console.log(chalk.cyanBright(`\n▣────────[ AUTOPURGESESSIONS ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
-}, 1000 * 60 * 60);
-setInterval(async () => {
-  if (stopped === 'close' || !conn || !conn.user) return;
+  if (stopped === 'close' || !conn || !conn?.user) return; //intervals at the same thime tho
   await purgeSessionSB();
-  //console.log(chalk.cyanBright(`\n▣────────[ AUTO_PURGE_SESSIONS_SUB-BOTS ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
-}, 1000 * 60 * 60);
-setInterval(async () => {
-  if (stopped === 'close' || !conn || !conn.user) return;
   await purgeOldFiles();
-  //console.log(chalk.cyanBright(`\n▣────────[ AUTO_PURGE_OLDFILES ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
+  await purgeSession();
 }, 1000 * 60 * 60);
+
 setInterval(async () => {
-  if (stopped === 'close' || !conn || !conn.user) return;
+  if (stopped === 'close' || !conn || !conn?.user) return;
   const _uptime = process.uptime() * 1000;
   const uptime = clockString(_uptime);
-  const bio = `تم صناعه البوت بواسطه يوسف السلطان وقت العمل:\n\n ${uptime}`;
-  await conn.updateProfileStatus(bio).catch((_) => _);
+  
+  const bio = `مرحبا انا بوت ❲ 𝐵𝛩𝑇 𝐴𝐿 𝑺𝛩𝐿𝑇𝐴𝑁 ❳\nاعمل بتقنيات الذكاء الاصطناعي\nاعمل منذ ❲ ${uptime} ❳\nلاستخدامي اكتب ❲ .اوامر ❳ ✅`;
+  await conn?.updateProfileStatus(bio).catch((_) => _);
 }, 60000);
 function clockString(ms) {
   const d = isNaN(ms) ? '--' : Math.floor(ms / 86400000);
   const h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24;
   const m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60;
   const s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60;
-  return [d, 'يوم ️', h, 'ساعه ', m, 'دقيقه ', s, 'ثانيه '].map((v) => v.toString().padStart(2, 0)).join('');
+  return [d, 'يوم ️', h, 'ساعه ', m, 'دقيقه ', s, 'ثواني '].map((v) => v.toString().padStart(2, 0)).join('');
 }
 _quickTest().catch(console.error);
